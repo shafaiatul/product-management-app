@@ -2,64 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
   <title>Annoor Product Management</title>
+  
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+  
   <!-- Style Sheets -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/app.css">
-
+  
+  
+          
 
 </head>
 
 
-<body  ng-app="productManagement">
+<body class="#e0f2f1 teal lighten-5"  ng-app="productManagement">
 
-<div class="panel panel-success">
-  <div class="panel-heading">
-    <h3 style="font-size: large" class="panel-title text-center">Product List</h3>
+  <div class="container ">
+    <div class="row">
+    
+      <div class="col s12 m6 l12">
+        <div class="card teal">
+          <div>
+              <h3 class="center-align white-text">Product List</h3>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col s12">
+        <table ng-controller="ProductListCtrl as vm" class="highlight hoverable" >
+    
+          <thead>
+            <tr>
+              <th>
+                <button class="btn waves-effect waves-light" ng-click="vm.toggleImage()" type="submit" name="action">
+                  {{vm.showImage ? 'Hide' : 'Show'}} Image
+                  <i class="material-icons right">send</i>
+                </button>
+              </th>
+              <th>Product</th>
+              <th>Code</th>
+              <th>Available</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="product in vm.products" class="success">
+              <td>
+                <img ng-if="vm.showImage" ng-src="{{product.imageUrl}}" title="{{product.productName}}" style="width: 50px; margin: 2px">
+              </td>
+              <td>{{product.productName}}</td>
+              <td>{{product.productCode}}</td>
+              <td>{{product.releaseDate}}</td>
+              <td>{{product.price | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+    </div>
   </div>
-  <div class="panel-body">
-
-    <table ng-controller="ProductListCtrl as vm" class="table table-striped table-hover" >
-
-      <thead>
-        <tr class="danger">
-          <th style="vertical-align: middle">
-            <a ng-click="vm.toggleImage()" class="btn btn-success">
-              {{vm.showImage ? 'Hide' : 'Show'}} Image</a>
-          </th>
-          <th style="vertical-align: middle">Product</th>
-          <th style="vertical-align: middle">Code</th>
-          <th style="vertical-align: middle">Available</th>
-          <th style="vertical-align: middle">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="vertical-align: middle" ng-repeat="product in vm.products" class="success">
-          <td>
-            <img ng-if="vm.showImage" ng-src="{{product.imageUrl}}" title="{{product.productName}}" style="width: 50px; margin: 2px">
-          </td>
-          <td style="vertical-align: middle">{{product.productName}}</td>
-          <td style="vertical-align: middle">{{product.productCode}}</td>
-          <td style="vertical-align: middle">{{product.releaseDate}}</td>
-          <td style="vertical-align: middle">{{product.price | currency}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 
 
 
 
-
-
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  
   <!-- Library Scripts -->
   <script src="js/angular.min.js"></script>
+  <script src="js/angular-resource.min.js"></script>
 
   <!-- Application Script -->
   <script src="app/app.js"></script>
 
   <!-- Product Controllers -->
   <script src="app/products/productListCtrl.js"></script>
+  
+  <!--services-->
+  <script src="common/services/common.services.js"></script>
+  <script src="common/services/productResource.js"></script>
 </body>
 </html>
